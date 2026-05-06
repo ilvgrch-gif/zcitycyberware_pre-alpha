@@ -1,0 +1,54 @@
+--local function OpenImplantInventory()
+  --  local frame = vgui.Create("DFrame")
+    --frame:SetSize(300, 400)
+--    frame:SetTitle("Cyber-Inventory")
+--    frame:Center()
+--    frame:MakePopup()
+--    frame.Paint = function(self, w, h)
+--        draw.RoundedBox(0, 0, 0, w, h, Color(10, 10, 10, 220))
+--        surface.SetDrawColor(0, 255, 255, 50)
+--        surface.DrawOutlinedRect(0, 0, w, h)
+--    end
+
+--    local scroll = vgui.Create("DScrollPanel", frame)
+--    scroll:Dock(FILL)
+
+--    if #LocalInventory < 1 then
+--        local label = scroll:Add("DLabel")
+--        label:SetText("No implants in pocket.")
+--        label:Dock(TOP)
+--        label:SetContentAlignment(5)
+--        return
+--    end
+
+--    for i, item in ipairs(LocalInventory) do
+--        local btn = scroll:Add("DButton")
+  --      btn:SetText(item.name or item.id)
+    --    btn:Dock(TOP)
+      --  btn:DockMargin(5, 5, 5, 0)
+        --btn:SetHeight(30)
+--        btn:SetTextColor(Color(255, 255, 255))
+  --      
+--  btn.DoClick = function() 
+--    surface.PlaySound("buttons/lightswitch2.wav")
+--        end
+--
+  --      -- ПКМ
+    --    btn.DoRightClick = function()
+      --      local menu = DermaMenu()
+        --    menu:AddOption("Drop Item", function()
+          --      net.Start("DropImplant")
+            --    net.WriteString(item.id)
+              --  net.WriteString(item.type or "implant")
+                --net.SendToServer()
+--                frame:Close()
+  --          end):SetIcon("icon16/arrow_down.png")
+    --        menu:Open()
+      --  end
+
+--        btn.Paint = function(self, w, h)
+--            local col = self:IsHovered() and Color(0, 255, 255, 40) or Color(30, 30, 30, 150)
+--            draw.RoundedBox(0, 0, 0, w, h, col)
+--        end
+--    end
+--end
