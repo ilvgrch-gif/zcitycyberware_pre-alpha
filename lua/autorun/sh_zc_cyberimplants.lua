@@ -1,3 +1,108 @@
 if SERVER then
     AddCSLuaFile()
 end
+-
+--ZC_CYBERDECK.QUICKHACKS = {
+--    short_circuit = {
+--        name = "Short Circuit",
+--        desc = "Наносит урон, увеличивающийся от имплантов жертвы. Накладывает тазер.",
+--        ram_cost = 2,
+--        cast_time = 0.5,
+--        cooldown = 8,
+--        range = 1500,
+--        visible = true,
+--        damage_base = {15, 25, 40},
+--        damage_per_chroma = 0.8,
+--        taser_duration = {2, 3, 4}
+--    },
+--    synapse_burnout = {
+--        name = "Synapse Burnout",
+--        desc = "Критический урон мозгу и поджигание цели.",
+--        ram_cost = 3,
+--        cast_time = 0.8,
+--        cooldown = 12,
+--        range = 1200,
+--        visible = true,
+--        damage_head = {20, 35, 50},
+--        burn_damage = {5, 8, 12},
+--        burn_duration = {4, 6, 8}
+--    },
+--    cyberware_shutoff = {
+--        name = "Cyberware Shut-off",
+--        desc = "Отключает все импланты жертвы на время.",
+--        ram_cost = 4,
+--        cast_time = 1.0,
+--        cooldown = 20,
+--        range = 1000,
+--        visible = true,
+--        disable_duration = {3, 5, 8}
+ --   },
+--    reboot_optics = {
+--        name = "Reboot Optics",
+--        desc = "Глитчи и ERROR на экране жертвы.",
+--        ram_cost = 2,
+--        cast_time = 0.3,
+--        cooldown = 10,
+--        range = 1500,
+--        visible = true,
+--        glitch_duration = {4, 6, 10},
+--        blind_duration = {1, 2, 3}
+--    },
+--    cyberpsychosis = {
+--        name = "Cyberpsychosis",
+--        desc = "QTE борьба. При провале - киберпсихоз.",
+--        ram_cost = 5,
+--        cast_time = 0.5,
+--        cooldown = 30,
+--        range = 1000,
+--        visible = false,
+--        qte_rounds = 3,
+--        qte_time_base = {2.5, 2.0, 1.5},
+--        qte_time_min = {0.8, 0.6, 0.4},
+--        qte_decay = 0.85
+--    },
+--    suicide = {
+--        name = "Suicide",
+--        desc = "QTE борьба. Проигравший умирает.",
+--        ram_cost = 6,
+--        cast_time = 1.0,
+--        cooldown = 45,
+--        range = 800,
+--        visible = false,
+ --       qte_rounds = 4,
+--        qte_time_base = {3.0, 2.5, 2.0},
+--        qte_time_min = {1.0, 0.8, 0.5},
+--        qte_decay = 0.8
+--    }
+--}
+
+--function ZC_CYBERDECK.GetTier(ply)
+--    if not IsValid(ply) then return 0 end
+--    if ply:GetNetVar("implant_cyberdeck_pro") then return 3 end
+--    if ply:GetNetVar("implant_cyberdeck_advanced") then return 2 end
+--    if ply:GetNetVar("implant_cyberdeck_basic") then return 1 end
+--    return 0
+--end
+
+--function ZC_CYBERDECK.GetTierData(ply)
+--    local tier = ZC_CYBERDECK.GetTier(ply)
+--    if tier == 0 then return nil end
+--    local deck_implant = "implant_cyberdeck_basic"
+--    if tier == 2 then deck_implant = "implant_cyberdeck_advanced" end
+--    if tier == 3 then deck_implant = "implant_cyberdeck_pro" end
+--    return ZC_CYBERDECK.TIERS[deck_implant], tier, deck_implant
+--end
+
+--function ZC_CYBERDECK.HasMilitaryOptics(ply)
+--    if not IsValid(ply) then return false end
+--    return ply:GetNetVar("implant_neurolink_military") or 
+--           ply:GetNetVar("implant_neurolink_militaryplus") or
+--           ply:GetNetVar("implant_neurolink_blackmarket")
+--end
+
+--function ZC_CYBERDECK.CanUseDeck(ply)
+--    if not IsValid(ply) then return false end
+--    return ZC_CYBERDECK.HasMilitaryOptics(ply) and ZC_CYBERDECK.GetTier(ply) > 0
+--end
+
+--print("[Z-City] Cyberdeck shared module loaded")
