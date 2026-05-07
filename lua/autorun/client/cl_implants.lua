@@ -2553,8 +2553,8 @@ concommand.Add("neurolink_scan", function()
     end
 end)
 
--- мп3 плеер в мозг финальный фикса
-local mp3Playing = false
+-- мп3 плеер в мозг финальный фикса -- СЕЙЧАС БЕСПОЛЕЗЕН НО В РЕЛИЗНОЙ ВЕРСИИ БУДЕТ >450 ТРЕКОВ
+local mp3Playing = false            -- я бы мог их добавить в этот билд но тогда файл бы пизданутся весил под 2гб
 local mp3Station = nil
 local mp3Playlist = {}
 local mp3CurrentTrack = 0
