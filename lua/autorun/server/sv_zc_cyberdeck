@@ -1,0 +1,11 @@
+if CLIENT then return end
+
+util.AddNetworkString("ZC_CyberdeckMenu")
+util.AddNetworkString("ZC_QuickhackCast")
+util.AddNetworkString("ZC_QuickhackEffect")
+util.AddNetworkString("ZC_QTE_Start")
+util.AddNetworkString("ZC_QTE_Result")
+util.AddNetworkString("ZC_QTE_Input")
+util.AddNetworkString("ZC_RebootOptics")
+
+      print("[ZC Cyberware] Cyberdeck server module loaded")
