@@ -1332,7 +1332,7 @@ if SERVER then
     end)
 end
 
-function CalculateChromaLoad(ply)
+function CalculateLoad(ply)
     if ZC_IMPLANTS and ZC_IMPLANTS.CalculateChromaLoad then
         return ZC_IMPLANTS.CalculateChromaLoad(ply)
     end
@@ -1368,7 +1368,7 @@ hook.Add("Org Think", "ChromaLoad_Psychosis", function(owner, org, timeValue)
     
     if not owner._debugTimer or CurTime() > owner._debugTimer then
         owner._debugTimer = CurTime() + 2
-        print("CHROMA DEBUG: nick=" .. owner:Nick() .. " load=" .. load .. " timer=" .. (org.psychosisTimer or 0))
+        --print("CHROMA DEBUG: nick=" .. owner:Nick() .. " load=" .. load .. " timer=" .. (org.psychosisTimer or 0))
     end
 
     if load >= 100 then
