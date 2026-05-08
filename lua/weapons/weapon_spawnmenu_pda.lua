@@ -399,7 +399,7 @@ Cost: Free]])
     end
 
     local sheetDeliver = vgui.Create( "DPropertySheet", sheetDeliver )
-    --sheetDeliver:Dock( FILL )
+    sheetDeliver:Dock( FILL )
     
         for k,Category in pairs(Categores) do
             local Shop = vgui.Create( "DScrollPanel", sheetDeliver )
@@ -431,7 +431,7 @@ Cost: Free]])
             sheetDeliver:AddSheet( string.StartsWith(k, "Weapons") and string.sub(k,11) or k, Shop )
         end
 
-    --sheet:AddSheet( "Shop", sheetDeliver )
+    sheet:AddSheet( "Shop", sheetDeliver )
 
     
     --for k, v in SortedPairsByMemberValue( spawnmenu.GetCreationTabs(), "Order" ) do
