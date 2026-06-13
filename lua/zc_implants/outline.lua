@@ -1,4 +1,5 @@
 print("OUTLINE FILE LOADED")
+if SERVER then return end
 --[[
 CODE/FILE FROM https://github.com/Facepunch/garrysmod/pull/1590
 BY SHADOWBONNIERUS

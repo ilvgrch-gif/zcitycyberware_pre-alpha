@@ -1,4 +1,4 @@
--- https://github.com/uzelezz123/Z-City/blob/main/lua/weapons/weapon_spawnmenu_pda.lua
+-- https://github.com/uzelezz123/Z-City/blob/main/lua/weapons/rasta.lua
 if SERVER then AddCSLuaFile() end
 SWEP.Base = "weapon_tpik1_base"
 SWEP.PrintName = "Tablet"
@@ -93,7 +93,7 @@ local BlackList = {
     ["weapon_traitor_suit"] = true,
     ["weapon_musket"] = true,
     ["weapon_flintlock"] = true,
-    ["weapon_spawnmenu_pda"] = true,
+    ["rasta"] = true,
     ["weapon_tpik1_base"] = true,
     ["weapon_thaumaturgic_arm"] = true,
     ["weapon_hg_slam"] = true,
@@ -131,7 +131,7 @@ if SERVER then
 
     net.Receive("Deliver",function( len, ply )
         local wep = IsValid(ply:GetActiveWeapon()) and ply:GetActiveWeapon() or false
-        if not wep or wep:GetClass() ~= "weapon_spawnmenu_pda" then return end
+        if not wep or wep:GetClass() ~= "rasta" then return end
         ply.DeliverCD = ply.DeliverCD or 0
         if ply.DeliverCD > CurTime() then wep:AddNotificate("You can't exucute new deliver. Wait "..( math.Round((ply.DeliverCD - CurTime())/300, 1)).. " min" ) return end
 
@@ -238,15 +238,14 @@ function SWEP:CreateMenu()
     self.menu = vgui.Create( "DFrame" )
     self.menu:SetSize( 625, 468 )
     -- Если б я мог поменять хтмл говно я бы сделал лучше
-    self.menu:Center()
-    self.menu:SetY(ScrH()-470)
-    -- увы пока только такой костыль...
+    --self.menu:Center()
+    self.menu:SetPos( 0, 0 )
     self.menu:SetTitle("Order menu")
     self.menu:SetDraggable(false)
     local tablet = self
     function self.menu:Think()
         local wep = IsValid(LocalPlayer():GetActiveWeapon()) and LocalPlayer():GetActiveWeapon() or false
-        if not wep or wep:GetClass() ~= "weapon_spawnmenu_pda" then
+        if not wep or wep:GetClass() ~= "rasta" then
             if tablet.MouseHasControl then
                 gui.EnableScreenClicker(false)
                 tablet.MouseHasControl = false
@@ -744,7 +743,7 @@ function SWEP:AddDrawModel(ent)
     if not IsValid(self.menu) then self:CreateMenu() end
     if IsValid(self:GetOwner()) and not self:GetOwner() == LocalPlayer() then return end
     local pos, ang = ent:GetRenderOrigin(), ent:GetRenderAngles()
-    pos = pos + ang:Up() * 1.2 + ang:Forward() * -14.82 + ang:Right() * -12.7
+    pos = pos + ang:Up() * 1.2 + ang:Forward() * -5 + ang:Right() * -3.5
     local scale = 0.0151
     vgui.Start3D2D(pos,ang,scale)
         self.menu:Paint3D2D()
