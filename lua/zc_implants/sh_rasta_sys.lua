@@ -247,7 +247,9 @@ end
 
 function AbilitySystem:HandleAirJump(key, ability)
     local ply = self.owner
-    if not ply:Alive() or ply:GetOrganism().otrub then return end
+    if not IsValid(ply) or not ply:Alive() then return end
+    local org = ply.organism
+    if not org or org.otrub then return end
     if ply:OnGround() then
         ply._airjumpUsed = false
         return
@@ -259,7 +261,10 @@ end
 
 function AbilitySystem:StartHold(key, atype, ability)
     local ply = self.owner
-    if not ply:Alive() or ply:GetOrganism().otrub or not ply:OnGround() then return end
+    if not IsValid(ply) or not ply:Alive() then return end
+    local org = ply.organism
+    if not org or org.otrub then return end
+    if not ply:OnGround() then return end
     ply.chargeStart = CurTime()
     self.holdState[atype] = { start = CurTime(), active = true }
 end
@@ -414,8 +419,8 @@ ZC_IMPLANTS.AbilityConfig = {
             },
             low = { jumpPower = 300 },
             mid = { jumpPower = 430 },
-            high = { jumpPower = 500, fallImmunity = true },
-            black_tier = { jumpPower = 1000, fallImmunity = true },
+            high = { jumpPower = 600, fallImmunity = true },
+            black_tier = { jumpPower = 900, fallImmunity = true },
         },
         fallImmunityCheck = function(ply)
             return ply:GetActiveAbilityTierData("airjump") and ply:GetActiveAbilityTierData("airjump").fallImmunity
@@ -778,7 +783,7 @@ local function bloodRefillMod(poolSize, regenRate, rechargeTime, bleedThreshold,
     return {
         type = "passive",
         onThink = function(ply, org, dt, state)
-            local id = state.id 
+            local id = implant_id
             if not id then return end
             local poolKey = "br_pool_" .. id
             local rechargeKey = "br_recharge_" .. id
