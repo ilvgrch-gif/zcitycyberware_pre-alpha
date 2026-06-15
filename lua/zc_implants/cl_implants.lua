@@ -336,7 +336,7 @@ end
                 if final == nil then final = active end
 
                 if final then
-                    total = total + (CHROMA_VALUES[tier.id] or 0)
+                    total = total + (ZC_IMPLANTS.CHROMA_VALUES[tier.id] or 0)
                 end
             end
         end
@@ -4860,5 +4860,19 @@ hook.Add("HUDPaint", "Neurolink_ChargeJumpBar", function()
             Color(255, 100, 100, 200), TEXT_ALIGN_CENTER)
     end
 end)
+
+local ZC_ActiveImplants = {}
+
+net.Receive("ZC_SyncImplants", function()
+    local data = util.JSONToTable(net.ReadString())
+    ZC_ActiveImplants = {}
+    for _, id in ipairs(data) do
+        ZC_ActiveImplants[id] = true
+    end
+end)
+
+function ZC_IMPLANTS.ClientHasImplant(id)
+    return ZC_ActiveImplants[id] == true
+end
 
 print("[ZC CYBERWARE] implant loading screen loaded")
