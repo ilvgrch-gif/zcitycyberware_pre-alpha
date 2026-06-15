@@ -3,6 +3,7 @@ include("sh_rasta_sys.lua")
 util.AddNetworkString("zc_implant_set")
 util.AddNetworkString("zc_implant_open_target")
 util.AddNetworkString("zc_nl_boot")
+util.AddNetworkString("ZC_SyncImplants")
 PlayerInventory = PlayerInventory or {}
 
 local NETVAR_IMPLANTS = (ZC_IMPLANTS and ZC_IMPLANTS.NETVAR_IMPLANTS) or {
@@ -118,6 +119,14 @@ function zc.SetImplant(ply, implant, value)
         ply:SetNetVar(implant, stored)
     end
 
+    if on then
+        local templateId = implant:match("^implant_(.+)$") or implant
+        ply:AddImplant(templateId)
+    else
+        local templateId = implant:match("^implant_(.+)$") or implant
+        ply:RemoveImplant(templateId)
+    end
+
     local function pushOrganism()
         if not IsValid(ply) or not ply.organism then return end
         ply.organism[implant] = stored
@@ -133,9 +142,11 @@ end
 
 hook.Add("Org Init", "zc_restore_implants_org", function(ply, org)
     if not ply.zc_implants then return end
-
+    ply:InitializeImplantSystems()
     for implant, _ in pairs(ply.zc_implants) do
         org[implant] = true
+        local templateId = implant:match("^implant_(.+)$") or implant
+        ply:AddImplant(templateId)
     end
 end)
 
@@ -243,6 +254,16 @@ hook.Add("HG_PlayerSay", "zc_ripperdoc_class", function(ply, txtTbl, text)
         return ""
     end
 end)
+
+local function SyncImplantsToClient(ply)
+    local packed = {}
+    for implant, _ in pairs(ply.zc_implants or {}) do
+        packed[#packed + 1] = implant
+    end
+    net.Start("ZC_SyncImplants")
+    net.WriteString(util.TableToJSON(packed))
+    net.Send(ply)
+end
 
 -- =====================================================
 -- Исходник: sv_inventory.lua
@@ -382,19 +403,21 @@ hook.Add("PreTraceOrganBulletDamage", "ZC_Implants_Damage", function(org, bone, 
     end
 end)
 
-hook.Add("KeyPress", "ZC_Implants_KeyPress", function(ply, key)
+if SERVER then
+    hook.Add("KeyPress", "ZC_Implants_KeyPress", function(ply, key)
     if not ply.abilitySystem then return end
     ply.abilitySystem:OnKeyPress(key)
 end)
 
-hook.Add("KeyRelease", "ZC_Implants_KeyRelease", function(ply, key)
-    if not ply.abilitySystem then return end
-    ply.abilitySystem:OnKeyRelease(key)
-end)
+    hook.Add("KeyRelease", "ZC_Implants_KeyRelease", function(ply, key)
+        if not ply.abilitySystem then return end
+        ply.abilitySystem:OnKeyRelease(key)
+    end)
 
-hook.Add("SetupMove", "ZC_Implants_SuppressJump", function(ply, mv)
-    if ply.abilitySystem then ply.abilitySystem:SuppressJump(mv) end
-end)
+    hook.Add("SetupMove", "ZC_Implants_SuppressJump", function(ply, mv)
+        if ply.abilitySystem then ply.abilitySystem:SuppressJump(mv) end
+    end)
+end
 
 hook.Add("OnPlayerHitGround", "ZC_Implants_FallProtection", function(ply, inwater, onfloater, speed)
     if ply:GetActiveAbilityTierData("airjump") and ply:GetActiveAbilityTierData("airjump").fallImmunity then
